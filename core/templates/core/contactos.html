@@ -1,0 +1,88 @@
+{% extends 'core/base.html '%}
+{% load static %}
+
+{% block Title %} Contactos {% endblock %}
+
+{% block BuyPro %} {% endblock %}
+
+{% block Name %}
+
+<header class="app-header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <ul class="navbar-nav">
+            <li class="row">
+                <h3> Manuel Valenzuela Faundez</h3>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+{% endblock %}
+
+{% block Principal %}
+
+<div class="container-fluid"></div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title d-flex align-items-center gap-2 mb-4">
+                    Forms
+                </h5>
+                <form>
+                    <div class="mb-4">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-4 form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="opcion3" value="valor3">
+                            Check me out
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title d-flex align-items-center gap-2 mb-4">
+                    Disabled Forms
+                </h5>
+                <form>
+                    <div class="mb-4">
+                        <label for="exampleInputLabel" class="form-label">Disabled Input</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            disabled>
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleSelect" class="form-label">Disabled Select Menu</label>
+                        <select class="form-select" id="exampleSelect" disabled>
+                            <option value="">Disabled Select</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+                    <div class="mb-4 form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="opcion3" value="valor3" disabled>
+                            Check me out
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="btn btn-primary" disabled>Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
