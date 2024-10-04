@@ -24,8 +24,8 @@ def mostrarsearch(request):
 def mostrarfavoritos(request):
     return render(request, 'core/favoritos.html')
 
-def mostraradmin(request):
-    return render(request, 'core/admin.html')
+def mostrarmantenedor(request):
+    return render(request, 'core/mantenedor.html')
 
 
 
