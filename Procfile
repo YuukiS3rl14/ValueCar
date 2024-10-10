@@ -1,1 +1,1 @@
-web: gunicorn SuperMarket.wsgi
+web: gunicorn SuperMarket.wsgi --bind 0.0.0.0:$PORT

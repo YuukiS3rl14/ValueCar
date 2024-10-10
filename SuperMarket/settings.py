@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,8 @@ SECRET_KEY = 'django-insecure-wya%ka!xfq9uh^(@h1qp@02+khj4#3qqgk)+it8gfc4*8eat-d
 DEBUG = False
 
 ALLOWED_HOSTS = ['supermarket-ih0o.onrender.com', 'localhost', '127.0.0.1']
+
+PORT = os.environ.get('PORT', '8000')
 
 
 # Application definition
