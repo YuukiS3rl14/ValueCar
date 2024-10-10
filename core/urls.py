@@ -9,5 +9,5 @@ urlpatterns = [
     path('contactos/', mostrarcontactos, name='contactos'),
     path('search/', mostrarsearch, name='search'),
     path('favoritos/', mostrarfavoritos, name='favoritos'),
-    path('mantenedor/', mostrarmantenedor, name='mantenedor'),
+    path('admin/', mostraradmin, name='admin'),
 ]

@@ -21,3 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('core.urls')),
 ]
+
+#           Configurar el ADMIN
+
+admin.site.site_title = 'SuperMarket'
+admin.site.site_header = 'Administracion de SuperMarket'
+admin.site.index_title = 'Modulos de SuperMarket'
