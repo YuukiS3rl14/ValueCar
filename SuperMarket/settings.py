@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-wya%ka!xfq9uh^(@h1qp@02+khj4#3qqgk)+it8gfc4*8eat-d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['supermarket-ih0o.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['supermarket-ih0o.onrender.com', 'localhost', '127.0.0.1', 'supermarket-epks.onrender.com']
 
 PORT = os.environ.get('PORT', '8000')
 
