@@ -3,6 +3,11 @@ from .models import *
 
 # Register your models here.
 
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'numero', 'nombre']
+    search_fields = ['id', 'numero', 'nombre']
+    list_per_page = 10
+
 class ComunaAdmin(admin.ModelAdmin):
     list_display = ['id', 'region', 'nombre']
     search_fields = ['id', 'region', 'nombre']
@@ -18,14 +23,14 @@ class ProductoAdmin(admin.ModelAdmin):
     search_fields = ['id', 'supermercado', 'marca', 'precio', 'descripcion', 'fecha_actualizacion']
     list_per_page = 10
 
-class TipoUsuarioAdmin(admin.ModelAdmin):
+class RolAdmin(admin.ModelAdmin):
     list_display = ['id', 'nombre']
     search_fields = ['id', 'nombre']
     list_per_page = 10
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ['tipousuario', 'nombre', 'apellido', 'email']
-    search_fields = ['tipousuario', 'nombre', 'apellido', 'email']
+    list_display = ['rol', 'nombre', 'apellido', 'email']
+    search_fields = ['rol', 'nombre', 'apellido', 'email']
     list_per_page = 10
 
 class ComentarioAdmin(admin.ModelAdmin):
@@ -33,9 +38,10 @@ class ComentarioAdmin(admin.ModelAdmin):
     search_fields = ['titulo', 'texto', 'calificacion', 'usuario', 'producto']
     list_per_page = 10
 
+admin.site.register(Region, RegionAdmin)
 admin.site.register(Comuna, ComunaAdmin)
 admin.site.register(Supermercado, SupermercadoAdmin)
 admin.site.register(Producto, ProductoAdmin)
-admin.site.register(TipoUsuario, TipoUsuarioAdmin)
+admin.site.register(Rol, RolAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Comentario, ComentarioAdmin)
