@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %} Update User {% endblock %}
+
+{% block principal %}
+
+<!-- Formulario para modificar empleados -->
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-sucess">Actualizar Usuario</button>
+</form>
+
+{% endblock %}
+

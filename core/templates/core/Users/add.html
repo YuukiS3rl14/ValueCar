@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %} Add User {% endblock %}
+
+{% block principal %}
+
+<!-- Formulario para añadir empleados -->
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-sucess">Agregar Usuario</button>
+</form>
+
+{% endblock %}
+
