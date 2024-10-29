@@ -746,3 +746,14 @@ a.no-underline:hover {
   --bs-text-opacity: 1;
     color: green !important;
 }
+.formulario{
+  margin-top: 80px;
+  margin-bottom: 80px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+.bg-section{
+  background-image: url('/static/core/images/background-pattern.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}

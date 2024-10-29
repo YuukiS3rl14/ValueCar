@@ -29,7 +29,7 @@ class Producto(models.Model):
     marca = models.CharField(max_length=50)
     precio = models.IntegerField() 
     descripcion = models.CharField(max_length=300)
-    imagen_url = models.CharField(max_length=300)
+    imagen_url = models.ImageField()
     origen_url = models.CharField(max_length=300)
     fecha_actualizacion = models.DateField()
 
