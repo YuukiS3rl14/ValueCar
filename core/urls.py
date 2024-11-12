@@ -2,17 +2,17 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', mostrarindex, name='index'),
-    path('login/', mostrarlogin, name='login'),
-    path('registro/', mostrarregistro, name='registro'),
-    path('index/', mostrarindex, name='index'),
-    path('contactos/', mostrarcontactos, name='contactos'),
-    path('search/', mostrarsearch, name='search'),
-    path('favoritos/', mostrarfavoritos, name='favoritos'),
-    path('aboutus/', mostraraboutus, name='aboutus'),
-    path('admin/', mostraradmin, name='admin'),
-    path('add/', adduser, name='add'),
-    path('list/', listuser, name='list'),
-    path('update/<id>/', updateuser, name='update'),
-    path('delete/<id>/', deleteuser, name='delete')
+    path('', showIndex, name='index'),
+    path('login/', showLogin, name='login'),
+    path('registro/', showRegister, name='registro'),
+    path('index/', showIndex, name='index'),
+    path('contactos/', showContact, name='contactos'),
+    path('search/', showSearch, name='search'),
+    path('favoritos/', showFavorite, name='favoritos'),
+    path('aboutus/', showAboutUs, name='aboutus'),
+    path('admin/', showAdmin, name='admin'),
+    path('add/', addProduct, name='add'),
+    path('list/', listProduct, name='list'),
+    path('update/<id>/', updateProduct, name='update'),
+    path('delete/<id>/', deleteProduct, name='delete')
 ]

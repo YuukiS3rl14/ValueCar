@@ -1,77 +1,92 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import *
 from .forms import *
 
 # Create your views here.
 
-def mostrarindex(request):
-    listproducts = Producto.objects.all()
-    datos = {'products': listproducts}  
+def showIndex(request):
+    listproducts5 = Producto.objects.order_by('-fecha_actualizacion')[:5]
+    listproducts10 = Producto.objects.order_by('precio')[:10]
+    
+    datos = {
+        'products5': listproducts5,
+        'products10': listproducts10
+    }
+    
     return render(request, 'core/index.html', datos)
 
-def mostrarlogin(request):
+def showLogin(request):
     return render(request, 'core/login.html')
 
-def mostrarregistro(request):
+def showRegister(request):
     return render(request, 'core/registro.html')
 
-def mostrarcontactos(request):
+def showContact(request):
     return render(request, 'core/contactos.html')
 
-def mostrarsearch(request):
-    return render(request, 'core/search.html')
+def showSearch(request):
+    query = request.POST.get('query', '')
+    results = Producto.objects.filter(
+        Q(nombre__icontains=query) | 
+        Q(marca__icontains=query) | 
+        Q(descripcion__icontains=query) | 
+        Q(supermercado__nombre__icontains=query)
+    )
+    return render(request, 'core/search.html', {'results': results, 'query': query})
 
-def mostrarfavoritos(request):
+def showFavorite(request):
     return render(request, 'core/favoritos.html')
 
-def mostraraboutus(request):
+def showAboutUs(request):
     return render(request, 'core/aboutus.html')
 
-def mostraradmin(request):
+def showAdmin(request):
     return render(request, 'core/admin.html')
 
-def adduser(request):
+def addProduct(request):
 
-    datos = {'form': UsuarioForm()}
+    datos = {'form': ProductoForm()}
 
     if request.method == 'POST':
-        form = UsuarioForm(request.POST)
+        form = ProductoForm(request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            datos['msj'] = 'Usuario agregado correctamente'
+            datos['msj'] = 'Producto agregado correctamente'
         else:
-            datos['msj'] = 'El usuario no ha sido agregado'
+            datos['msj'] = 'El producto no ha sido agregado'
 
     return render(request, 'core/Users/add.html', datos)
 
-def listuser(request):
+def listProduct(request):
 
-    listuser = Usuario.objects.all()
-    datos = {'users': listuser}
+    listproduct = Producto.objects.all()
+    datos = {'product': listproduct}
 
     return render(request, 'core/Users/list.html', datos)
 
-def updateuser(request, id):
+def updateProduct(request, id):
 
-    user = Usuario.objects.get(id=id)
-    datos = {'form': UsuarioForm(instance=user)}
+    product = Producto.objects.get(id=id)
+    datos = {'form': ProductoForm(instance=product)}
 
     if request.method == 'POST':
-        form = UsuarioForm(data=request.POST, instance=user)
+        form = ProductoForm(data=request.POST, instance=product, files=request.FILES)
         if form.is_valid():
             form.save()
-            datos['msj'] = 'Usuario modificado correctamente'
+            datos['msj'] = 'Producto modificado correctamente'
             datos['form'] = form
         else:
-            datos['msj'] = 'El usuario no ha sido modificado'
+            datos['msj'] = 'El producto no ha sido modificado'
 
     return render(request, 'core/Users/update.html', datos)
 
-def deleteuser(request, id):
-    user = Usuario.objects.get(id=id)
+def deleteProduct(request, id):
+
+    user = Producto.objects.get(id=id)
     user.delete()
 
-    return render(request, 'core/Users/list.html')
+    return redirect(to="list")
 
 
 

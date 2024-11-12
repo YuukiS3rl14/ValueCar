@@ -15,8 +15,30 @@ function confirmDelete(id) {
                 text: "El empleado a sido eliminado.",
                 icon: "success"
             }).then(function() {
-                window.location.href = "/deleteuser/"+id+"/";
+                window.location.href = "/delete/"+id+"/";
             });
         }
     });
 }
+
+function confirmAdd(){
+
+    Swal.fire({
+        icon: "success",
+        title: "Producto Agregado",
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+function failAdd(){
+
+    Swal.fire({
+        icon: "error",
+        title: "Producto no Agregado",
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+

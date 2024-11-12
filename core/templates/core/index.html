@@ -13,19 +13,18 @@
                     <div class="banner-ad large bg-info block-1">
                         <div class="swiper main-swiper">
                             <div class="swiper-wrapper">
-                                {% for product in products %}
+                                {% for product in products5 %}
                                 <div class="swiper-slide">
                                     <div class="row banner-content p-5">
                                         <div class="content-wrapper col-md-7 text-center">
-                                            <div class="categories my-2 py-4">{{ product.nombre }}</div>
+                                            <div class="categories my-2 py-4">{{ product.nombre }} {{ product.marca }}</div>
                                             <img src="{% static 'core/images/' %}{{ product.supermercado.id }}-logo.png" class="img-fluid py-2" alt="{{ product.supermercado.nombre }} Logo">
-                                            <h3 class="display-4 my-3 py-3">{{ product.precio }}</h3>
+                                            <h3 class="display-4 my-3 py-3">${{ product.precio }}</h3>
                                             <p class="py-3">{{ product.descripcion }}</p>
                                             <a href="{{ product.origen_url }}" class="btn btn-outline-dark btn-lg text-uppercase rounded-1 px-4 py-3 mt-3">Ir al Supermercado</a>
                                         </div>
                                         <div class="img-wrapper col-md-5">
-                                            <p>URL de la imagen: {{ product.imagen_url }}</p>
-                                            <img src="{{ product.imagen_url }}" class="img-fluid">
+                                            <img src="{{ product.imagen_url.url }}" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -42,120 +41,38 @@
 
 <section class="py-5 bg-section">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-md-12">
-
                 <div class="bootstrap-tabs product-tabs">
                     <div class="tabs-header d-flex justify-content-between border-bottom my-5">
                         <h3>Productos Tendencias</h3>
                     </div>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-all" role="tabpanel"
-                            aria-labelledby="nav-all-tab">
-
-                            <div
-                                class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
+                        <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                            <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                {% for product in products10 %}
                                 <div class="col">
                                     <div class="product-item">
-                                        <span class="badge bg-success position-absolute m-3">Ahorra $300</span>
                                         <a href="#" class="btn-wishlist"><svg width="24" height="24">
                                                 <use xlink:href="#heart"></use>
                                             </svg></a>
                                         <figure>
-                                            <a href="{% url 'index' %}" title="Product Title">
-                                                <img src="{% static 'core/images/choclo-minuto-verde.png' %}" class="tab-image">
+                                            <a href="{{ product.origen_url }}" title="{{ product.nombre }}">
+                                                <img src="{{ product.imagen_url.url }}" class="tab-image" alt="{{ product.nombre }}">
                                             </a>
                                         </figure>
-                                        <h3>Choclo Minuto Verde</h3>
-                                        <span class="rating"><svg width="24"
-                                                height="24" class="text-primary">
+                                        <h3>{{ product.nombre }}</h3>
+                                        <h5>{{ product.marca }}</h5>
+                                        <span class="rating"><svg width="24" height="24" class="text-primary">
                                                 <use xlink:href="#star-solid"></use>
                                             </svg> 4.5</span>
-                                        <span class="price">$1.590</span>
+                                        <span class="price">${{ product.precio }}</span>
+                                        <div class="text-end mt-2">
+                                            <img src="{% static 'core/images/' %}{{ product.supermercado.id }}-logo.png" class="img-fluid" style="max-width: 80px;" alt="{{ product.supermercado.nombre }} Logo">
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="product-item">
-                                        <span class="badge bg-success position-absolute m-3">Ahorra $2.800</span>
-                                        <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                                                <use xlink:href="#heart"></use>
-                                            </svg></a>
-                                        <figure>
-                                            <a href="{% url 'index' %}" title="Product Title">
-                                                <img src="{% static 'core/images/salmon-aqua2.png' %}" class="tab-image">
-                                            </a>
-                                        </figure>
-                                        <h3>Salmon Aqua</h3>
-                                        <span class="rating"><svg width="24"
-                                                height="24" class="text-primary">
-                                                <use xlink:href="#star-solid"></use>
-                                            </svg> 4.5</span>
-                                        <span class="price">$7.990</span>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="product-item">
-                                        <span class="badge bg-success position-absolute m-3">Ahorra $600</span>
-                                        <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                                                <use xlink:href="#heart"></use>
-                                            </svg></a>
-                                        <figure>
-                                            <a href="{% url 'index' %}" title="Product Title">
-                                                <img src="{% static 'core/images/huevos-cintazul.png' %}" class="tab-image">
-                                            </a>
-                                        </figure>
-                                        <h3>Huevos Cintazul</h3>
-                                        <span class="rating"><svg width="24"
-                                                height="24" class="text-primary">
-                                                <use xlink:href="#star-solid"></use>
-                                            </svg> 4.5</span>
-                                        <span class="price">$8.190</span>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="product-item">
-                                        <span class="badge bg-success position-absolute m-3">Ahorra $600</span>
-                                        <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                                                <use xlink:href="#heart"></use>
-                                            </svg></a>
-                                        <figure>
-                                            <a href="{% url 'index' %}" title="Product Title">
-                                                <img src="{% static 'core/images/bebida-zero-pepsi.png' %}" class="tab-image">
-                                            </a>
-                                        </figure>
-                                        <h3>Bebida Zero Pepsi</h3>
-                                        <span class="rating"><svg width="24"
-                                                height="24" class="text-primary">
-                                                <use xlink:href="#star-solid"></use>
-                                            </svg> 4.5</span>
-                                        <span class="price">$2.090</span>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="product-item">
-                                        <span class="badge bg-success position-absolute m-3">Ahorra $600</span>
-                                        <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                                                <use xlink:href="#heart"></use>
-                                            </svg></a>
-                                        <figure>
-                                            <a href="{% url 'index' %}" title="Product Title">
-                                                <img src="{% static 'core/images/queso-gauda-soprole.png' %}" class="tab-image">
-                                            </a>
-                                        </figure>
-                                        <h3>Queso Gauda Soprole</h3>
-                                        <span class="rating"><svg width="24"
-                                                height="24" class="text-primary">
-                                                <use xlink:href="#star-solid"></use>
-                                            </svg> 4.5</span>
-                                        <span class="price">$5.390</span>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

@@ -19,8 +19,8 @@ class SupermercadoAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'supermercado', 'marca', 'precio', 'descripcion', 'fecha_actualizacion']
-    search_fields = ['id', 'supermercado', 'marca', 'precio', 'descripcion', 'fecha_actualizacion']
+    list_display = ['id', 'supermercado', 'nombre', 'marca', 'precio', 'descripcion', 'fecha_actualizacion']
+    search_fields = ['id', 'supermercado', 'nombre', 'marca', 'precio', 'descripcion', 'fecha_actualizacion']
     list_per_page = 10
 
 class RolAdmin(admin.ModelAdmin):

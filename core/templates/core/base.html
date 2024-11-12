@@ -94,21 +94,20 @@
 
                 <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-4 d-none d-lg-block">
                     <div class="search-bar row bg-light p-2 my-2 rounded-4">
-
                         <!-- Buscador de Productos -->
                         <div class="col-11 col-md-10">
                             <form id="search-form" class="text-center" action="{% url 'search' %}" method="post">
-                                <input type="text" class="form-control border-0 bg-transparent"
-                                    placeholder="Buscar Productos" />
+                                {% csrf_token %}
+                                <input type="text" name="query" class="form-control border-0 bg-transparent" placeholder="Buscar Productos" required />
                             </form>
                         </div>
                         <div class="col-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
-                            </svg>
+                            <button type="submit" form="search-form" class="btn btn-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
+                                </svg>
+                            </button>
                         </div>
-                        <!---->
                     </div>
                 </div>
                 
@@ -215,10 +214,10 @@
                             <div class="offcanvas-body text-center">
                                 <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
                                     <li class="nav-item active">
-                                        <a href="{% url 'add' %}" class="nav-link">Add</a>
+                                        <a href="{% url 'add' %}" class="nav-link">Agregar Producto</a>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a href="{% url 'list' %}" class="nav-link">List</a>
+                                        <a href="{% url 'list' %}" class="nav-link">Listar Productos</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" role="button" id="pages"
@@ -253,7 +252,7 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-md-6 text-end">
                     <div class="footer-menu">
                         <a href="{% url 'index' %}">
                             <img src="{% static 'core/images/logo1.png' %}" alt="logo">
@@ -261,7 +260,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 col-sm-6">
+                <div class="col-md-6 text-start">
                     <div class="footer-menu">
                         <h5 class="widget-title fw-bold">SuperMarket</h5>
                         <ul class="menu-list list-unstyled">

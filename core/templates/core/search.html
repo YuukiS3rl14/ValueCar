@@ -1,9 +1,56 @@
 {% extends 'core/base.html '%}
 {% load static %}
 
-{% block title %} Buscar {% endblock %}
+{% block title %} Search {% endblock %}
 
 {% block principal %}
+
+<section class="py-5 bg-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bootstrap-tabs product-tabs">
+                    <div class="tabs-header d-flex justify-content-between border-bottom my-5">
+                        <h3>Resultados de Búsqueda para "{{ query }}"</h3>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                            <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                {% if results %}
+                                    {% for product in results %}
+                                    <div class="col">
+                                        <div class="product-item">
+                                            <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                                                    <use xlink:href="#heart"></use>
+                                                </svg></a>
+                                            <figure>
+                                                <a href="{{ product.origen_url }}" title="{{ product.nombre }}">
+                                                    <img src="{{ product.imagen_url.url }}" class="tab-image" alt="{{ product.nombre }}">
+                                                </a>
+                                            </figure>
+                                            <h3>{{ product.nombre }}</h3>
+                                            <h5>{{ product.marca }}</h5>
+                                            <span class="rating"><svg width="24" height="24" class="text-primary">
+                                                    <use xlink:href="#star-solid"></use>
+                                                </svg> 4.5</span>
+                                            <span class="price">${{ product.precio }}</span>
+                                            <div class="text-end mt-2">
+                                                <img src="{% static 'core/images/' %}{{ product.supermercado.id }}-logo.png" class="img-fluid" style="max-width: 80px;" alt="{{ product.supermercado.nombre }} Logo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No se encontraron resultados.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
 

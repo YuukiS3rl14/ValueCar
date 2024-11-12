@@ -15,3 +15,9 @@ class RolForm(ModelForm):
     class Meta:
         model = Rol
         fields = ['nombre']
+
+class ProductoForm(ModelForm):
+
+    class Meta:
+        model = Producto
+        fields = ['supermercado','nombre','marca','precio','descripcion','origen_url','imagen_url','fecha_actualizacion']
