@@ -38,6 +38,11 @@ class ComentarioAdmin(admin.ModelAdmin):
     search_fields = ['titulo', 'texto', 'calificacion', 'usuario', 'producto']
     list_per_page = 10
 
+class FavoritoAdmin(admin.ModelAdmin):
+    list_display = ['usuario', 'producto']
+    search_fields = ['usuario', 'producto']
+    list_per_page = 10
+
 admin.site.register(Region, RegionAdmin)
 admin.site.register(Comuna, ComunaAdmin)
 admin.site.register(Supermercado, SupermercadoAdmin)
@@ -45,3 +50,4 @@ admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Rol, RolAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Comentario, ComentarioAdmin)
+admin.site.register(Favorito, FavoritoAdmin)

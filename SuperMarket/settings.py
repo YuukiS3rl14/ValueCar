@@ -30,6 +30,8 @@ ALLOWED_HOSTS = ['supermarket-ih0o.onrender.com', 'localhost', '127.0.0.1', 'sup
 
 PORT = os.environ.get('PORT', '8000')
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 

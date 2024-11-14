@@ -61,6 +61,13 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+class Favorito(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('usuario', 'producto') 
 
 
 
