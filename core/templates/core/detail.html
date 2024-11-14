@@ -1,0 +1,85 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block title %} Detalle - {{ producto.nombre }} {% endblock %}
+
+{% block principal %}
+{% if messages %}
+<div class="alert alert-info">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <h1>{{ producto.nombre }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ producto.imagen_url.url }}" alt="{{ producto.nombre }}" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h3>Detalles</h3>
+            <table class="table">
+                <tr>
+                    <th>Marca</th>
+                    <td>{{ producto.marca }}</td>
+                </tr>
+                <tr>
+                    <th>Precio</th>
+                    <td>${{ producto.precio }}</td>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>{{ producto.descripcion }}</td>
+                </tr>
+                <tr>
+                    <th>Supermercado</th>
+                    <td>{{ producto.supermercado.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Actualización</th>
+                    <td>{{ producto.fecha_actualizacion }}</td>
+                </tr>
+            </table>
+            <a href="{{ producto.origen_url }}" class="btn btn-primary">Ir al Supermercado</a>
+            {% if user.is_authenticated %}
+                <button class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#commentOffcanvas">Añadir Comentario</button>
+            {% endif %}
+            </div>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="commentOffcanvas" aria-labelledby="offcanvasMenuLabel">
+                <div class="offcanvas-header justify-content-center">
+                    <h5 id="offcanvasMenuLabel">Añadir Comentario</h5>
+                </div>
+                <div class="offcanvas-body text-center">
+                    <form id="commentForm" method="post">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <input type="hidden" name="usuario_id" value="{{ user.id }}">
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <button type="submit" class="btn btn-primary" id="submitComment">Enviar Comentario</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Volver</button>
+                    </form>
+                </div>
+            </div>
+            <h2>Comentarios:</h2>
+            <div>
+                {% for comentario in comentarios %}
+                    <div class="comment">
+                        <strong>{{ comentario.usuario.username }}</strong>: <em>{{ comentario.titulo }}</em>
+                        <br>{{ comentario.texto }} 
+                        <br><em>Calificación: {{ comentario.calificacion }}</em>
+                    </div>
+                    <hr>
+                {% empty %}
+                    <p>No hay comentarios para este producto.</p>
+                {% endfor %}
+            </div>
+            <div>
+                {% include 'core/paginator.html' with paginator=paginator %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

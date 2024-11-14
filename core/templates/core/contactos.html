@@ -3,81 +3,53 @@
 
 {% block title %} Contactos {% endblock %}
 
-{% block Name %}
+{% block principal %}
 
-<header class="app-header">
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <ul class="navbar-nav">
-            <li class="row">
-                <h3> Manuel Valenzuela Faundez</h3>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-{% endblock %}
-
-{% block Principal %}
-
-<div class="container-fluid"></div>
-<div class="row">
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title d-flex align-items-center gap-2 mb-4">
-                    Forms
-                </h5>
-                <form>
-                    <div class="mb-4">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+<div class="page-wrapper bg-section" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+data-sidebar-position="fixed" data-header-position="fixed">
+    <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="row justify-content-center w-100">
+            <div class="col-md-8 col-lg-5 col-xxl-5 contenedor">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center gap-2 mb-4">
+                            Contacto
+                        </h5>
+                        <p>Para cualquier consulta, no dudes en ponerte en contacto con nosotros:</p>
+                        <h6>Información de la Empresa</h6>
+                        <p><strong>Nombre de la Empresa:</strong> SuperMarket S.A.</p>
+                        <p><strong>Dirección:</strong> Avenida Principal 456, Ciudad de Compras, País Real</p>
+                        <p><strong>Teléfono:</strong> +123 456 7890</p>
+                        <p><strong>Email:</strong> contacto@supermarket.com</p>
                     </div>
-                    <div class="mb-4">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center gap-2 mb-4">
+                            Envíanos un Mensaje
+                        </h5>
+                        <form>
+                            <div class="mb-4">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="mb-4 form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="opcion3" value="valor3">
-                            Check me out
-                        </label>
-                    </div>
-                    <div class="mb-4">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title d-flex align-items-center gap-2 mb-4">
-                    Disabled Forms
-                </h5>
-                <form>
-                    <div class="mb-4">
-                        <label for="exampleInputLabel" class="form-label">Disabled Input</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            disabled>
-                    </div>
-                    <div class="mb-4">
-                        <label for="exampleSelect" class="form-label">Disabled Select Menu</label>
-                        <select class="form-select" id="exampleSelect" disabled>
-                            <option value="">Disabled Select</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
-                    </div>
-                    <div class="mb-4 form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="opcion3" value="valor3" disabled>
-                            Check me out
-                        </label>
-                    </div>
-                    <div class="mb-4">
-                        <button type="submit" class="btn btn-primary" disabled>Submit</button>
-                    </div>
-                </form>
+                </div>
+                <div class="mt-4 bg-section">
+                    <p>Para más información sobre nuestra empresa, visita nuestra <a href="{% url 'aboutus' %}">página Sobre Nosotros</a>.</p>
+                </div>
             </div>
         </div>
     </div>

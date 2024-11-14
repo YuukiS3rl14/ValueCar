@@ -6,12 +6,6 @@ from .models import *
 
 # Template para poder usar el formulario en HTML
 
-class UsuarioForm(ModelForm):
-
-    class Meta:
-        model = Usuario
-        fields = ['rol','nombre','apellido','email','contraseña']
-
 class RolForm(ModelForm):
 
     class Meta:
@@ -29,3 +23,12 @@ class RegistroForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','first_name','last_name','email','password1','password2']
+
+class ComentarioForm(forms.ModelForm):
+
+    class Meta:
+        model = Comentario
+        fields = ['titulo', 'texto', 'calificacion']
+
+    usuario_id = forms.IntegerField(widget=forms.HiddenInput())
+    producto_id = forms.IntegerField(widget=forms.HiddenInput())

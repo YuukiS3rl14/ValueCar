@@ -246,10 +246,12 @@
                                 </ul>
                             </div>
                         </div>
+                        {% if mostrar_filtros %}
                         <button class="navbar-toggler btn btn-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilters" aria-controls="offcanvasFilters">
                             <span class="navbar-toggler-icon"></span>
                             <span class="me-2">Filtros</span>
                         </button>
+                        {% endif %}
                         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilters" aria-labelledby="offcanvasFiltersLabel">
                             <div class="offcanvas-header justify-content-center">
                                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -329,10 +331,10 @@
                         <h5 class="widget-title fw-bold">SuperMarket</h5>
                         <ul class="menu-list list-unstyled">
                             <li class="menu-item">
-                                <a href="#" class="nav-link">Sobre Nosotros</a>
+                                <a href="{% url 'aboutus' %}" class="nav-link">Sobre Nosotros</a>
                             </li>
                             <li class="menu-item">
-                                <a href="#" class="nav-link">Contactanos</a>
+                                <a href="{% url 'contact' %}" class="nav-link">Contactanos</a>
                             </li>
                         </ul>
                     </div>
@@ -366,7 +368,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'core/js/plugins.js' %}"></script>
     <script src="{% static 'core/js/script.js' %}"></script>
-    <script src="{% static 'core/js/function.js' %}"></script>
+    <script src="{% static 'core/js/alerts.js' %}"></script>
+    <!--<script src="{% static 'core/js/functions.js' %}"></script>-->
     <!---->
 </body>
 </html>

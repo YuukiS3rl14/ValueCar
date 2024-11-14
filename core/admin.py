@@ -28,11 +28,6 @@ class RolAdmin(admin.ModelAdmin):
     search_fields = ['id', 'nombre']
     list_per_page = 10
 
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ['rol', 'nombre', 'apellido', 'email']
-    search_fields = ['rol', 'nombre', 'apellido', 'email']
-    list_per_page = 10
-
 class ComentarioAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'texto', 'calificacion', 'usuario', 'producto']
     search_fields = ['titulo', 'texto', 'calificacion', 'usuario', 'producto']
@@ -48,6 +43,5 @@ admin.site.register(Comuna, ComunaAdmin)
 admin.site.register(Supermercado, SupermercadoAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Rol, RolAdmin)
-admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Comentario, ComentarioAdmin)
 admin.site.register(Favorito, FavoritoAdmin)

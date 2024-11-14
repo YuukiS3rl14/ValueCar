@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
-from django.db.models import Q
-from django.core.paginator import Paginator
-from django.http import Http404
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404
+
 from .models import *
 from .forms import *
 
@@ -20,7 +21,8 @@ def showIndex(request):
         'products5': listproducts5,
         'productslider': listproductslider,
         'productsjumbo': listproductsjumbo,
-        'productssanta_isabel': listproductssanta_isabel
+        'productssanta_isabel': listproductssanta_isabel,
+        'mostrar_filtros': True
     }
     
     return render(request, 'core/index.html', datos)
@@ -41,9 +43,6 @@ def showRegistro(request):
         data["form"] = form
 
     return render(request, 'registration/registro.html', data)
-
-def showContact(request):
-    return render(request, 'core/contactos.html')
 
 def showSearch(request):
     query = request.GET.get('query', '') 
@@ -71,21 +70,66 @@ def showSearch(request):
 
     if category:
         results = results.filter(marca=category)
-
     if market:
         results = results.filter(supermercado=market)
-
     if name_initial:
         results = results.filter(nombre__istartswith=name_initial)
 
-    return render(request, 'core/search.html', {'results': results, 'query': query})
+    return render(request, 'core/search.html', {'results': results, 'query': query, 'mostrar_filtros': True})
 
 @login_required
 def showFavorite(request):
-    return render(request, 'core/favoritos.html')
+    listproducts5 = Producto.objects.order_by('-fecha_actualizacion')[:5]
+
+    datos = {
+        'products5': listproducts5}
+
+    return render(request, 'core/favoritos.html', datos)
+
+def showDetail(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    form = ComentarioForm()
+
+    comentarios = Comentario.objects.filter(producto=producto).select_related('usuario')
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(comentarios, 5)  
+    try:
+        comentarios_paginated = paginator.page(page)
+    except PageNotAnInteger:
+        comentarios_paginated = paginator.page(1)
+    except EmptyPage:
+        comentarios_paginated = paginator.page(paginator.num_pages) 
+
+    if request.method == 'POST':
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.usuario = request.user  
+            comentario.producto = producto 
+            comentario.save()
+            messages.success(request, 'Comentario agregado correctamente.')
+            return render(request, 'core/detail.html', {
+                'producto': producto,
+                'form': form,
+                'comentarios': comentarios_paginated,
+                'paginator': paginator,
+            })
+        else:
+            messages.error(request, 'El comentario no ha sido agregado. Por favor, revisa la información.')
+
+    return render(request, 'core/detail.html', {
+        'producto': producto,
+        'form': form,
+        'comentarios': comentarios_paginated,
+        'paginator': paginator,
+    })
 
 def showAboutUs(request):
     return render(request, 'core/aboutus.html')
+
+def showContact(request):
+    return render(request, 'core/contactos.html')
 
 def showAdmin(request):
     return render(request, 'core/admin.html')

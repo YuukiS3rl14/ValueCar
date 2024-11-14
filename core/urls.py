@@ -5,13 +5,14 @@ urlpatterns = [
     path('', showIndex, name='index'),
     path('index/', showIndex, name='index'),
     path('registro/', showRegistro, name='registro'),
-    path('contact/', showContact, name='contact'),
     path('search/', showSearch, name='search'),
-    path('favoritos/', showFavorite, name='favoritos'),
+    path('detail/<int:id>/', showDetail, name='detail'),
+    path('contact/', showContact, name='contact'),
     path('aboutus/', showAboutUs, name='aboutus'),
     path('admin/', showAdmin, name='admin'),
     path('add/', addProduct, name='add'),
     path('list/', listProduct, name='list'),
     path('update/<id>/', updateProduct, name='update'),
-    path('delete/<id>/', deleteProduct, name='delete')
+    path('delete/<id>/', deleteProduct, name='delete'),
+    path('favoritos/', showFavorite, name='favoritos'),
 ]
