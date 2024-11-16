@@ -222,12 +222,12 @@
                             </div>
                             <div class="offcanvas-body text-center">
                                 <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                                    {% if perms.core.add_product %}
+                                    {% if perms.core.add_producto %}
                                     <li class="nav-item active">
                                         <a href="{% url 'add' %}" class="nav-link">Agregar Producto</a>
                                     </li>
                                     {% endif %}
-                                    {% if perms.core.view_product %}
+                                    {% if perms.core.view_producto %}
                                     <li class="nav-item dropdown">
                                         <a href="{% url 'list' %}" class="nav-link">Listar Productos</a>
                                     </li>

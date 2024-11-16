@@ -24,9 +24,9 @@
                                                     <use xlink:href="#heart"></use>
                                                 </svg></a>
                                             <figure>
-                                                <a href="{{ product.origen_url }}" title="{{ product.nombre }}">
+                                                <a href="{% url 'detail' product.id %}" title="{{ product.nombre }}">
                                                     <img src="{{ product.imagen_url.url }}" class="tab-image" alt="{{ product.nombre }}">
-                                                </a>
+                                                    </a>
                                             </figure>
                                             <h3>{{ product.nombre }}</h3>
                                             <h5>{{ product.marca }}</h5>

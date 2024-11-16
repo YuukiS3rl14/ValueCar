@@ -64,7 +64,7 @@
                                 <td><img src="{{ aux.imagen_url.url }}" alt="{{ aux.nombre }}" class="img-fluid" style="max-width: 100px;"></td>
                                 <td>{{ aux.fecha_actualizacion }}</td>
                                 <td>
-                                    {% if perms.core.change_product and perms.core.delete_product %}
+                                    {% if perms.core.change_producto and perms.core.delete_producto %}
                                     <a href="{% url 'update' aux.id %}" class="btn btn-primary">Modificar</a>
                                     <a onclick="confirmDelete({{ aux.id }})" class="btn btn-danger">Eliminar</a>
                                     {% endif %}
@@ -78,8 +78,8 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     <a href="{% url 'index' %}" class="btn btn-secondary">Volver al Index</a>
-                    {% if perms.core.add_product %}
-                    <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                    {% if perms.core.add_producto %}
+                    <a href="{% url 'add' %}" class="btn btn-primary">Agregar Producto</a>
                     {% endif %}
                 </div>
             </div>
@@ -123,5 +123,7 @@
             </div>
         </div>
     </div>
+    <script src="{% static 'core/js/alerts.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

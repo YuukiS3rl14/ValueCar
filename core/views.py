@@ -134,7 +134,7 @@ def showContact(request):
 def showAdmin(request):
     return render(request, 'core/admin.html')
 
-@permission_required('app.add_product')
+@permission_required('core.add_producto')
 def addProduct(request):
 
     datos = {'form': ProductoForm()}
@@ -149,7 +149,7 @@ def addProduct(request):
 
     return render(request, 'core/Products/add.html', datos)
 
-@permission_required('app.view_product')
+@permission_required('core.view_producto')
 def listProduct(request):
 
     listproduct = Producto.objects.all()
@@ -166,7 +166,7 @@ def listProduct(request):
 
     return render(request, 'core/Products/list.html', datos)
 
-@permission_required('app.change_product')
+@permission_required('core.change_producto')
 def updateProduct(request, id):
 
     product = Producto.objects.get(id=id)
@@ -183,7 +183,7 @@ def updateProduct(request, id):
 
     return render(request, 'core/Products/update.html', datos)
 
-@permission_required('delete.add_product')
+@permission_required('core.delete_producto')
 def deleteProduct(request, id):
 
     user = Producto.objects.get(id=id)

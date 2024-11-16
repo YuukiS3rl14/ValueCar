@@ -12,7 +12,7 @@ function confirmDelete(id) {
         if (result.isConfirmed) {
             Swal.fire({
                 title: "Eliminado!",
-                text: "El empleado a sido eliminado.",
+                text: "El producto a sido eliminado.",
                 icon: "success"
             }).then(function() {
                 window.location.href = "/delete/"+id+"/";
