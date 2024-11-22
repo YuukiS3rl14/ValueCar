@@ -49,9 +49,10 @@ class Auto(models.Model):
     fecha_actualizacion = models.DateField(auto_now=True)
     kilometraje = models.IntegerField(null=True, blank=True)
     tipo_combustible = models.ForeignKey(TipoCombustible, on_delete=models.CASCADE)
-    potencia = models.IntegerField(null=True, blank=True) 
+    potencia = models.CharField(max_length=50) 
     tipo_transmicion = models.ForeignKey(TipoTransmicion, on_delete=models.CASCADE)
     color = models.CharField(max_length=30)
+    nuevo = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nombre 

@@ -2,7 +2,7 @@
 {% load static %}
 {% load bootstrap5 %}
 
-{% block title %} Detalle - {{ producto.nombre }} {% endblock %}
+{% block title %} ValueCar | Detalle - {{ auto.nombre }} {% endblock %}
 
 {% block principal %}
 {% if messages %}
@@ -13,36 +13,36 @@
 </div>
 {% endif %}
 <div class="container">
-    <h1>{{ producto.nombre }}</h1>
+    <h1>{{ auto.nombre }}</h1>
     <div class="row">
         <div class="col-md-6">
-            <img src="{{ producto.imagen_url.url }}" alt="{{ producto.nombre }}" class="img-fluid">
+            <img src="{{ auto.imagen.url }}" alt="{{ auto.nombre }}" class="img-fluid">
         </div>
         <div class="col-md-6">
             <h3>Detalles</h3>
             <table class="table">
                 <tr>
                     <th>Marca</th>
-                    <td>{{ producto.marca }}</td>
+                    <td>{{ auto.marca }}</td>
                 </tr>
                 <tr>
                     <th>Precio</th>
-                    <td>${{ producto.precio }}</td>
+                    <td>${{ auto.precio }}</td>
                 </tr>
                 <tr>
                     <th>Descripción</th>
-                    <td>{{ producto.descripcion }}</td>
+                    <td>{{ auto.descripcion }}</td>
                 </tr>
                 <tr>
                     <th>Supermercado</th>
-                    <td>{{ producto.supermercado.nombre }}</td>
+                    <td>{{ auto.automotora.nombre }}</td>
                 </tr>
                 <tr>
                     <th>Fecha de Actualización</th>
-                    <td>{{ producto.fecha_actualizacion }}</td>
+                    <td>{{ auto.fecha_actualizacion }}</td>
                 </tr>
             </table>
-            <a href="{{ producto.origen_url }}" class="btn btn-primary">Ir al Supermercado</a>
+            <a href="{{ auto.origen }}" class="btn btn-primary">Ir a la Automotora</a>
             {% if user.is_authenticated %}
                 <button class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#commentOffcanvas">Añadir Comentario</button>
             {% endif %}
@@ -56,7 +56,7 @@
                         {% csrf_token %}
                         {% bootstrap_form form %}
                         <input type="hidden" name="usuario_id" value="{{ user.id }}">
-                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <input type="hidden" name="auto_id" value="{{ auto.id }}">
                         <button type="submit" class="btn btn-primary" id="submitComment">Enviar Comentario</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Volver</button>
                     </form>
@@ -72,7 +72,7 @@
                     </div>
                     <hr>
                 {% empty %}
-                    <p>No hay comentarios para este producto.</p>
+                    <p>No hay comentarios para este vehiculo.</p>
                 {% endfor %}
             </div>
             <div>

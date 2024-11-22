@@ -18,6 +18,16 @@ class AutomotoraAdmin(admin.ModelAdmin):
     search_fields = ['id', 'comuna', 'nombre']
     list_per_page = 10
 
+class TipoCombustibleAdmin(admin.ModelAdmin):
+    list_display = ['id', 'nombre']
+    search_fields = ['id', 'nombre']
+    list_per_page = 10
+
+class TipoTransmicionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'nombre']
+    search_fields = ['id', 'nombre']
+    list_per_page = 10
+
 class AutoAdmin(admin.ModelAdmin):
     list_display = ['id', 'automotora', 'nombre', 'marca', 'modelo', 'año', 'precio','descripcion','imagen','origen','fecha_actualizacion','kilometraje','tipo_combustible','potencia','tipo_transmicion','color']
     search_fields = ['id', 'automotora', 'nombre', 'marca', 'modelo', 'año', 'precio','descripcion','imagen','origen','fecha_actualizacion','kilometraje','tipo_combustible','potencia','tipo_transmicion','color']
@@ -41,6 +51,8 @@ class FavoritoAdmin(admin.ModelAdmin):
 admin.site.register(Region, RegionAdmin)
 admin.site.register(Comuna, ComunaAdmin)
 admin.site.register(Automotora, AutomotoraAdmin)
+admin.site.register(TipoCombustible, TipoCombustibleAdmin)
+admin.site.register(TipoTransmicion, TipoTransmicionAdmin)
 admin.site.register(Auto, AutoAdmin)
 admin.site.register(Rol, RolAdmin)
 admin.site.register(Comentario, ComentarioAdmin)

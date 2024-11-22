@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
-{% block title %} Home {% endblock %}
+{% block title %} ValueCar | Home {% endblock %}
 
 {% block principal %}
 
@@ -14,19 +14,19 @@
                     <div class="banner-ad large bg-info block-1">
                         <div class="swiper main-swiper">
                             <div class="swiper-wrapper">
-                                {% for product in products5 %}
+                                {% for auto in autos5 %}
                                 <div class="swiper-slide">
                                     <div class="row banner-content p-5">
                                         <div class="content-wrapper col-md-7 text-center">
-                                            <div class="categories my-2 py-4">{{ product.nombre }} {{ product.marca }}</div>
-                                            <img src="{% static 'core/images/' %}{{ product.supermercado.nombre }}-logo.png" class="img-fluid py-2" alt="{{ product.supermercado.nombre }} Logo">
-                                            <h3 class="display-4 my-3 py-3">${{ product.precio }}</h3>
-                                            <p class="py-3">{{ product.descripcion }}</p>
-                                            <a href="{{ product.origen_url }}" class="btn btn-outline-dark btn-lg text-uppercase rounded-1 px-4 py-3 mt-3">Ir al Supermercado</a>
+                                            <div class="categories my-2 py-4">{{ auto.nombre }} - {{ auto.modelo }}</div>
+                                            <img src="{% static 'core/images/' %}{{ auto.marca }}-logo.png" class="img-fluid py-2" alt="{{ auto.supermercado.nombre }} Logo">
+                                            <h3 class="display-4 my-3 py-3">${{ auto.precio }}</h3>
+                                            <p class="py-3">{{ auto.descripcion }}</p>
+                                            <a href="{{ auto.origen }}" class="btn btn-outline-dark btn-lg text-uppercase rounded-1 px-4 py-3 mt-3">Ir a la Automora</a>
                                         </div>
                                         <div class="img-wrapper col-md-5">
-                                            <a href="{% url 'detail' product.id %}" title="{{ product.nombre }}">  
-                                                <img src="{{ product.imagen_url.url }}" class="img-fluid">
+                                            <a href="{% url 'detail' auto.id %}" title="{{ auto.nombre }}">  
+                                                <img src="{{ auto.imagen.url }}" class="img-fluid">
                                             </a>
                                         </div>
                                     </div>
@@ -51,36 +51,36 @@
                 <div class="product-tabs">
                     <!-- Carrusel para Lider -->
                     <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-                        <h3>Lider</h3>
+                        <h3>Guillermo Morales</h3>
                     </div>
                     <div id="carousel-lider" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            {% for products in lider_productos %}
+                            {% for autos in guillermo_autos %}
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                     <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                                        {% for product in products %}
+                                        {% for auto in autos %}
                                             <div class="col">
                                                 <div class="product-item">
                                                     {% if user.is_authenticated %}
-                                                        <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ product.id }}">
+                                                        <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ auto.id }}">
                                                             <svg width="24" height="24">
                                                                 <use xlink:href="#heart"></use>
                                                             </svg>
                                                         </a>
                                                     {% endif %}
                                                     <figure>
-                                                        <a href="{% url 'detail' product.id %}" title="{{ product.nombre }}">  
-                                                            <img src="{{ product.imagen_url.url }}" class="tab-image" alt="{{ product.nombre }}">
+                                                        <a href="{% url 'detail' auto.id %}" title="{{ auto.nombre }}">  
+                                                            <img src="{{ auto.imagen.url }}" class="tab-image" alt="{{ auto.nombre }}">
                                                         </a>
                                                     </figure>
-                                                    <h3>{{ product.nombre }}</h3>  
-                                                    <h5>{{ product.marca }}</h5>
+                                                    <h3>{{ auto.nombre }}</h3>  
+                                                    <h5>{{ auto.marca }}</h5>
                                                     <span class="rating"><svg width="24" height="24" class="text-primary">
                                                             <use xlink:href="#star-solid"></use>
                                                         </svg> 4.5</span>
-                                                    <span class="price">${{ product.precio }}</span>
+                                                    <span class="price">${{ auto.precio }}</span>
                                                     <div class="text-end mt-2">
-                                                        <img src="{% static 'core/images/' %}{{ product.supermercado.nombre }}-logo.png" class="brand-logo" alt="{{ product.supermercado.nombre }} Logo">
+                                                        <img src="{% static 'core/images/' %}{{ auto.automotora.nombre }}-logo.png" class="brand-logo" alt="{{ auto.supermercado.nombre }} Logo">
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,36 +102,36 @@
                 
                     <!-- Carrusel para Jumbo -->
                     <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-                        <h3>Jumbo</h3>
+                        <h3>Cosmos Autos</h3>
                     </div>
                     <div id="carousel-jumbo" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            {% for products in jumbo_productos %}
+                            {% for autos in cosmos_autos %}
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                     <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                                        {% for product in products %}
+                                        {% for auto in autos %}
                                             <div class="col">
                                                 <div class="product-item">
                                                     {% if user.is_authenticated %}
-                                                        <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ product.id }}">
+                                                        <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ auto.id }}">
                                                             <svg width="24" height="24">
                                                                 <use xlink:href="#heart"></use>
                                                             </svg>
                                                         </a>
                                                     {% endif %}
                                                     <figure>
-                                                        <a href="{% url 'detail' product.id %}" title="{{ product.nombre }}">  
-                                                            <img src="{{ product.imagen_url.url }}" class="tab-image" alt="{{ product.nombre }}">
+                                                        <a href="{% url 'detail' auto.id %}" title="{{ auto.nombre }}">  
+                                                            <img src="{{ auto.imagen.url }}" class="tab-image" alt="{{ auto.nombre }}">
                                                         </a>
                                                     </figure>
-                                                    <h3>{{ product.nombre }}</h3>  
-                                                    <h5>{{ product.marca }}</h5>
+                                                    <h3>{{ auto.nombre }}</h3>  
+                                                    <h5>{{ auto.marca }}</h5>
                                                     <span class="rating"><svg width="24" height="24" class="text-primary">
                                                             <use xlink:href="#star-solid"></use>
                                                         </svg> 4.5</span>
-                                                    <span class="price">${{ product.precio }}</span>
+                                                    <span class="price">${{ auto.precio }}</span>
                                                     <div class="text-end mt-2">
-                                                        <img src="{% static 'core/images/' %}{{ product.supermercado.nombre }}-logo.png" class="brand-logo" alt="{{ product.supermercado.nombre }} Logo">
+                                                        <img src="{% static 'core/images/' %}{{ auto.automotora.nombre }}-logo.png" class="brand-logo" alt="{{ auto.supermercado.nombre }} Logo">
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,36 +153,36 @@
 
                     <!-- Carrusel para Santa Isabel -->
                     <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-                        <h3>Santa Isabel</h3>
+                        <h3>Autos Usados</h3>
                     </div>
                     <div id="carousel-santa-isabel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            {% for products in santa_isabel_productos %}
+                            {% for autos in usados_autos %}
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                     <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                                        {% for product in products %}
+                                        {% for auto in autos %}
                                             <div class="col">
                                                 <div class="product-item">
                                                     {% if user.is_authenticated %}
-                                                        <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ product.id }}">
+                                                        <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ auto.id }}">
                                                             <svg width="24" height="24">
                                                                 <use xlink:href="#heart"></use>
                                                             </svg>
                                                         </a>
                                                     {% endif %}
                                                     <figure>
-                                                        <a href="{% url 'detail' product.id %}" title="{{ product.nombre }}">  
-                                                            <img src="{{ product.imagen_url.url }}" class="tab-image" alt="{{ product.nombre }}">
+                                                        <a href="{% url 'detail' auto.id %}" title="{{ auto.nombre }}">  
+                                                            <img src="{{ auto.imagen.url }}" class="tab-image" alt="{{ auto.nombre }}">
                                                         </a>
                                                     </figure>
-                                                    <h3>{{ product.nombre }}</h3>  
-                                                    <h5>{{ product.marca }}</h5>
+                                                    <h3>{{ auto.nombre }}</h3>  
+                                                    <h5>{{ auto.marca }}</h5>
                                                     <span class="rating"><svg width="24" height="24" class="text-primary">
                                                             <use xlink:href="#star-solid"></use>
                                                         </svg> 4.5</span>
-                                                    <span class="price">${{ product.precio }}</span>
+                                                    <span class="price">${{ auto.precio }}</span>
                                                     <div class="text-end mt-2">
-                                                        <img src="{% static 'core/images/' %}{{ product.supermercado.nombre }}-logo.png" class="brand-logo" alt="{{ product.supermercado.nombre }} Logo">
+                                                        <img src="{% static 'core/images/' %}{{ auto.automotora.nombre }}-logo.png" class="brand-logo" alt="{{ auto.supermercado.nombre }} Logo">
                                                     </div>
                                                 </div>
                                             </div>

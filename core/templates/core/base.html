@@ -10,7 +10,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="author" content="Manuel Valenzuela Faundez">
-    <meta name="description" content="Recopilador de Productos de Supermercado">
+    <meta name="description" content="Recopilador de Vehiculos de Automotoras">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -69,7 +69,7 @@
                 </h4>
                 <form role="search" action="index.html" method="get" class="d-flex mt-3 gap-0">
                     <input class="form-control rounded-start rounded-0 bg-light" type="email"
-                        placeholder="Buscar Productos" aria-label="Buscar Productos">
+                        placeholder="Buscar Vehiculos" aria-label="Buscar Vehiculos">
                     <button class="btn btn-dark rounded-end rounded-0" type="submit">Buscar</button>
                 </form>
             </div>
@@ -81,7 +81,6 @@
         <!--Navbar-->
         <div class="container-fluid  bg-dark">
             <div class="row py-3 border-bottom">
-
                 <!-- Logo -->
                 <div class="col-sm-4 col-lg-3 text-center text-sm-start">
                     <div class="main-logo">
@@ -91,14 +90,13 @@
                     </div>
                 </div>
                 <!---->
-
                 <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-4 d-none d-lg-block">
                     <div class="search-bar row bg-light p-2 my-2 rounded-4">
-                        <!-- Buscador de Productos -->
+                        <!-- Buscador de Vehiculos -->
                         <div class="col-11 col-md-10">
                             <form id="search-form" class="text-center" action="{% url 'search' %}" method="get">
                                 {% csrf_token %}
-                                <input type="text" name="query" class="form-control border-0 bg-transparent" placeholder="Buscar Productos" required />
+                                <input type="text" name="query" class="form-control border-0 bg-transparent" placeholder="Buscar Vehiculos" required />
                             </form>
                         </div>
                         <div class="col-1">
@@ -110,7 +108,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div
                     class="col-sm-8 col-lg-5 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
                     <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
@@ -132,7 +129,7 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li id="user-content">
+                            <li>
                                 <a href="{% url 'logout' %}" class="d-flex rounded-4 bg-light p-2 mx-1 no-underline">
                                     <span class="me-2">Cerrar_Sesion</span>
                                     <svg width="24" height="24" viewBox="0 0 24 24">
@@ -222,14 +219,14 @@
                             </div>
                             <div class="offcanvas-body text-center">
                                 <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                                    {% if perms.core.add_producto %}
+                                    {% if perms.core.add_auto %}
                                     <li class="nav-item active">
-                                        <a href="{% url 'add' %}" class="nav-link">Agregar Producto</a>
+                                        <a href="{% url 'add' %}" class="nav-link">Agregar Vehiculo</a>
                                     </li>
                                     {% endif %}
-                                    {% if perms.core.view_producto %}
+                                    {% if perms.core.view_auto %}
                                     <li class="nav-item dropdown">
-                                        <a href="{% url 'list' %}" class="nav-link">Listar Productos</a>
+                                        <a href="{% url 'list' %}" class="nav-link">Listar Vehiculos</a>
                                     </li>
                                     {% endif %}
                                     <li class="nav-item dropdown">
@@ -290,7 +287,7 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="nameInitial" class="form-label">Letra Inicial del Producto:</label>
+                                        <label for="nameInitial" class="form-label">Letra Inicial del Vehiculo:</label>
                                         <select id="nameInitial" name="name_initial" class="form-select">
                                             <option value="">Letra</option>
                                             {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"|slice:":26" %}
@@ -328,7 +325,7 @@
                 </div>
                 <div class="col-md-6 text-start">
                     <div class="footer-menu">
-                        <h5 class="widget-title fw-bold">SuperMarket</h5>
+                        <h5 class="widget-title fw-bold">ValueCar</h5>
                         <ul class="menu-list list-unstyled">
                             <li class="menu-item">
                                 <a href="{% url 'aboutus' %}" class="nav-link">Sobre Nosotros</a>
@@ -374,7 +371,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 copyright">
-                    <p>© 2023 SuperMarket. All rights reserved.</p>
+                    <p>© 2024 ValueCar. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 credit-link text-start text-md-end">
                     <p>Template by <a href="https://github.com/YuukiS3rl14">Manuel Valenzuela</a></p>

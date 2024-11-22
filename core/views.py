@@ -13,19 +13,19 @@ from .forms import *
 
 def showIndex(request):
     listautos5 = Auto.objects.order_by('-fecha_actualizacion')[:5]
-    autoslider = Auto.objects.filter(automotora__nombre='Lider')
-    autosjumbo = Auto.objects.filter(automotora__nombre='Jumbo')
-    autossanta_isabel = Auto.objects.filter(automotora__nombre='Santa Isabel')
+    autosguillermo = Auto.objects.filter(automotora__nombre='Guillermo Morales')
+    autoscosmos = Auto.objects.filter(automotora__nombre='autoscosmos')
+    autosusados = Auto.objects.filter(automotora__nombre='autosusados')
     
-    lider_autos = [autoslider[i:i + 5] for i in range(0, len(autoslider), 5)]
-    jumbo_autos = [autosjumbo[i:i + 5] for i in range(0, len(autosjumbo), 5)]
-    santa_isabel_autos = [autossanta_isabel[i:i + 5] for i in range(0, len(autossanta_isabel), 5)]
+    guillermo_autos = [autosguillermo[i:i + 5] for i in range(0, len(autosguillermo), 5)]
+    cosmos_autos = [autoscosmos[i:i + 5] for i in range(0, len(autoscosmos), 5)]
+    usados_autos = [autosusados[i:i + 5] for i in range(0, len(autosusados), 5)]
 
     datos = {
         'autos5': listautos5,
-        'lider_autos': lider_autos,
-        'jumbo_autos': jumbo_autos,
-        'santa_isabel_autos': santa_isabel_autos,
+        'guillermo_autos': guillermo_autos,
+        'cosmos_autos': cosmos_autos,
+        'usados_autos': usados_autos,
         'mostrar_filtros': True
     }
     

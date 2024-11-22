@@ -12,7 +12,7 @@ function confirmDelete(id) {
         if (result.isConfirmed) {
             Swal.fire({
                 title: "Eliminado!",
-                text: "El producto a sido eliminado.",
+                text: "El vehiculo a sido eliminado.",
                 icon: "success"
             }).then(function() {
                 window.location.href = "/delete/"+id+"/";
@@ -25,7 +25,7 @@ function confirmAdd(){
 
     Swal.fire({
         icon: "success",
-        title: "Producto Agregado",
+        title: "Vehiculo Agregado",
         showConfirmButton: false,
         timer: 1500
     });
@@ -35,7 +35,7 @@ function failAdd(){
 
     Swal.fire({
         icon: "error",
-        title: "Producto no Agregado",
+        title: "Vehiculo no Agregado",
         showConfirmButton: false,
         timer: 1500
     });
