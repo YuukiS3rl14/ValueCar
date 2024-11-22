@@ -13,14 +13,14 @@ class ComunaAdmin(admin.ModelAdmin):
     search_fields = ['id', 'region', 'nombre']
     list_per_page = 10
 
-class SupermercadoAdmin(admin.ModelAdmin):
+class AutomotoraAdmin(admin.ModelAdmin):
     list_display = ['id', 'comuna', 'nombre']
     search_fields = ['id', 'comuna', 'nombre']
     list_per_page = 10
 
-class ProductoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'supermercado', 'nombre', 'marca', 'precio', 'descripcion', 'fecha_actualizacion']
-    search_fields = ['id', 'supermercado', 'nombre', 'marca', 'precio', 'descripcion', 'fecha_actualizacion']
+class AutoAdmin(admin.ModelAdmin):
+    list_display = ['id', 'automotora', 'nombre', 'marca', 'modelo', 'año', 'precio','descripcion','imagen','origen','fecha_actualizacion','kilometraje','tipo_combustible','potencia','tipo_transmicion','color']
+    search_fields = ['id', 'automotora', 'nombre', 'marca', 'modelo', 'año', 'precio','descripcion','imagen','origen','fecha_actualizacion','kilometraje','tipo_combustible','potencia','tipo_transmicion','color']
     list_per_page = 10
 
 class RolAdmin(admin.ModelAdmin):
@@ -29,19 +29,19 @@ class RolAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 class ComentarioAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'texto', 'calificacion', 'usuario', 'producto']
-    search_fields = ['titulo', 'texto', 'calificacion', 'usuario', 'producto']
+    list_display = ['titulo', 'texto', 'calificacion', 'usuario', 'auto']
+    search_fields = ['titulo', 'texto', 'calificacion', 'usuario', 'auto']
     list_per_page = 10
 
 class FavoritoAdmin(admin.ModelAdmin):
-    list_display = ['usuario', 'producto']
-    search_fields = ['usuario', 'producto']
+    list_display = ['usuario', 'auto']
+    search_fields = ['usuario', 'auto']
     list_per_page = 10
 
 admin.site.register(Region, RegionAdmin)
 admin.site.register(Comuna, ComunaAdmin)
-admin.site.register(Supermercado, SupermercadoAdmin)
-admin.site.register(Producto, ProductoAdmin)
+admin.site.register(Automotora, AutomotoraAdmin)
+admin.site.register(Auto, AutoAdmin)
 admin.site.register(Rol, RolAdmin)
 admin.site.register(Comentario, ComentarioAdmin)
 admin.site.register(Favorito, FavoritoAdmin)

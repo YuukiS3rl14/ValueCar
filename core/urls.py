@@ -10,9 +10,9 @@ urlpatterns = [
     path('contact/', showContact, name='contact'),
     path('aboutus/', showAboutUs, name='aboutus'),
     path('admin/', showAdmin, name='admin'),
-    path('add/', addProduct, name='add'),
-    path('list/', listProduct, name='list'),
-    path('update/<id>/', updateProduct, name='update'),
-    path('delete/<id>/', deleteProduct, name='delete'),
+    path('add/', addCar, name='add'),
+    path('list/', listCar, name='list'),
+    path('update/<id>/', updateCar, name='update'),
+    path('delete/<id>/', deleteCar, name='delete'),
     path('favoritos/', showFavorite, name='favoritos'),
 ]

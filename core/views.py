@@ -12,16 +12,20 @@ from .forms import *
 # Create your views here.
 
 def showIndex(request):
-    listproducts5 = Producto.objects.order_by('-fecha_actualizacion')[:5]
-    listproductslider = Producto.objects.filter(supermercado__nombre='Lider').order_by('precio')[:10]
-    listproductsjumbo = Producto.objects.filter(supermercado__nombre='Jumbo').order_by('precio')[:10]
-    listproductssanta_isabel = Producto.objects.filter(supermercado__nombre='Santa Isabel').order_by('precio')[:10]
+    listautos5 = Auto.objects.order_by('-fecha_actualizacion')[:5]
+    autoslider = Auto.objects.filter(automotora__nombre='Lider')
+    autosjumbo = Auto.objects.filter(automotora__nombre='Jumbo')
+    autossanta_isabel = Auto.objects.filter(automotora__nombre='Santa Isabel')
     
+    lider_autos = [autoslider[i:i + 5] for i in range(0, len(autoslider), 5)]
+    jumbo_autos = [autosjumbo[i:i + 5] for i in range(0, len(autosjumbo), 5)]
+    santa_isabel_autos = [autossanta_isabel[i:i + 5] for i in range(0, len(autossanta_isabel), 5)]
+
     datos = {
-        'products5': listproducts5,
-        'productslider': listproductslider,
-        'productsjumbo': listproductsjumbo,
-        'productssanta_isabel': listproductssanta_isabel,
+        'autos5': listautos5,
+        'lider_autos': lider_autos,
+        'jumbo_autos': jumbo_autos,
+        'santa_isabel_autos': santa_isabel_autos,
         'mostrar_filtros': True
     }
     
@@ -30,13 +34,13 @@ def showIndex(request):
 def showRegistro(request):
     data = {
         'form': RegistroForm()
-        }
+    }
     
     if request.method == 'POST':
         form = RegistroForm(data=request.POST)
         if form.is_valid():
             form.save()
-            user = authenticate(username = form.cleaned_data["username"], password = form.cleaned_data["password1"])
+            user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
             login(request, user)
             messages.success(request, 'Registro exitoso!')
             return redirect(to='index')
@@ -51,14 +55,14 @@ def showSearch(request):
     market = request.GET.get('market', '')
     name_initial = request.GET.get('name_initial', '')
 
-    results = Producto.objects.all()
+    results = Auto.objects.all()
 
     if query:
         results = results.filter(
             Q(nombre__icontains=query) | 
             Q(marca__icontains=query) | 
             Q(descripcion__icontains=query) | 
-            Q(supermercado__nombre__icontains=query)
+            Q(automotora__nombre__icontains=query)
         )
 
     if price_range:
@@ -71,7 +75,7 @@ def showSearch(request):
     if category:
         results = results.filter(marca=category)
     if market:
-        results = results.filter(supermercado=market)
+        results = results.filter(automotora__nombre=market)
     if name_initial:
         results = results.filter(nombre__istartswith=name_initial)
 
@@ -79,18 +83,19 @@ def showSearch(request):
 
 @login_required
 def showFavorite(request):
-    listproducts5 = Producto.objects.order_by('-fecha_actualizacion')[:5]
+    listautos5 = Auto.objects.order_by('-fecha_actualizacion')[:5]
 
     datos = {
-        'products5': listproducts5}
+        'autos5': listautos5
+    }
 
     return render(request, 'core/favoritos.html', datos)
 
 def showDetail(request, id):
-    producto = get_object_or_404(Producto, id=id)
+    auto = get_object_or_404(Auto, id=id)
     form = ComentarioForm()
 
-    comentarios = Comentario.objects.filter(producto=producto).select_related('usuario')
+    comentarios = Comentario.objects.filter(auto=auto).select_related('usuario')
 
     page = request.GET.get('page', 1)
     paginator = Paginator(comentarios, 5)  
@@ -106,11 +111,11 @@ def showDetail(request, id):
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.usuario = request.user  
-            comentario.producto = producto 
+            comentario.auto = auto 
             comentario.save()
             messages.success(request, 'Comentario agregado correctamente.')
             return render(request, 'core/detail.html', {
-                'producto': producto,
+                'auto': auto,
                 'form': form,
                 'comentarios': comentarios_paginated,
                 'paginator': paginator,
@@ -119,7 +124,7 @@ def showDetail(request, id):
             messages.error(request, 'El comentario no ha sido agregado. Por favor, revisa la información.')
 
     return render(request, 'core/detail.html', {
-        'producto': producto,
+        'auto': auto,
         'form': form,
         'comentarios': comentarios_paginated,
         'paginator': paginator,
@@ -134,64 +139,55 @@ def showContact(request):
 def showAdmin(request):
     return render(request, 'core/admin.html')
 
-@permission_required('core.add_producto')
-def addProduct(request):
-
-    datos = {'form': ProductoForm()}
+@permission_required('core.add_auto')
+def addCar(request):
+    datos = {'form': AutoForm()}
 
     if request.method == 'POST':
-        form = ProductoForm(request.POST, files=request.FILES)
+        form = AutoForm(request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            datos['msj'] = 'Producto agregado correctamente'
+            datos['msj'] = 'Auto agregado correctamente'
         else:
-            datos['msj'] = 'El producto no ha sido agregado'
+            datos['msj'] = 'El auto no ha sido agregado'
 
-    return render(request, 'core/Products/add.html', datos)
+    return render(request, 'core/Car/add.html', datos)
 
-@permission_required('core.view_producto')
-def listProduct(request):
-
-    listproduct = Producto.objects.all()
-    page = request.GET.get('page',1)
+@permission_required('core.view_auto')
+def listCar(request):
+    listaautos = Auto.objects.all()
+    page = request.GET.get('page', 1)
 
     try:
-        paginator = Paginator(listproduct, 5)
-        listproduct = paginator.page(page)
+        paginator = Paginator(listaautos, 5)
+        listaautos = paginator.page(page)
     except:
         raise Http404
 
-    datos = {'entity': listproduct,
-            'paginator': paginator}
+    datos = {'entity': listaautos,
+              'paginator': paginator}
 
-    return render(request, 'core/Products/list.html', datos)
+    return render(request, 'core/Car/list.html', datos)
 
-@permission_required('core.change_producto')
-def updateProduct(request, id):
-
-    product = Producto.objects.get(id=id)
-    datos = {'form': ProductoForm(instance=product)}
+@permission_required('core.change_auto')
+def updateCar(request, id):
+    auto = Auto.objects.get(id=id)
+    datos = {'form': AutoForm(instance=auto)}
 
     if request.method == 'POST':
-        form = ProductoForm(data=request.POST, instance=product, files=request.FILES)
+        form = AutoForm(data=request.POST, instance=auto, files=request.FILES)
         if form.is_valid():
             form.save()
-            datos['msj'] = 'Producto modificado correctamente'
+            datos['msj'] = 'Auto modificado correctamente'
             datos['form'] = form
         else:
-            datos['msj'] = 'El producto no ha sido modificado'
+            datos['msj'] = 'El auto no ha sido modificado'
 
-    return render(request, 'core/Products/update.html', datos)
+    return render(request, 'core/Car/update.html', datos)
 
-@permission_required('core.delete_producto')
-def deleteProduct(request, id):
-
-    user = Producto.objects.get(id=id)
-    user.delete()
+@permission_required('core.delete_auto')
+def deleteCar(request, id):
+    auto = Auto.objects.get(id=id)
+    auto.delete()
 
     return redirect(to="list")
-
-
-
-
-

@@ -12,11 +12,11 @@ class RolForm(ModelForm):
         model = Rol
         fields = ['nombre']
 
-class ProductoForm(ModelForm):
+class AutoForm(ModelForm):
 
     class Meta:
-        model = Producto
-        fields = ['supermercado','nombre','marca','precio','descripcion','origen_url','imagen_url','fecha_actualizacion']
+        model = Auto
+        fields = ['id', 'automotora', 'nombre', 'marca', 'modelo', 'año', 'precio','descripcion','imagen','origen','kilometraje','tipo_combustible','potencia','tipo_transmicion','color']
 
 class RegistroForm(UserCreationForm):
 
