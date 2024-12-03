@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404
+from django.views.decorators.http import require_POST, require_http_methods
+from django.http import Http404, JsonResponse
 
 from .models import *
 from .forms import *
@@ -30,6 +31,19 @@ def showIndex(request):
     }
     
     return render(request, 'core/index.html', datos)
+
+@login_required
+def editar_perfil(request):
+    user = request.user
+    if request.method == 'POST':
+        form = RegistroForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil') 
+    else:
+        form = RegistroForm(instance=user)
+    
+    return render(request, 'core/perfil.html', {'form': form})
 
 def showRegistro(request):
     data = {
@@ -83,13 +97,50 @@ def showSearch(request):
 
 @login_required
 def showFavorite(request):
-    listautos5 = Auto.objects.order_by('-fecha_actualizacion')[:5]
+    user_id = request.user.id
+    
+    favoritos = Favorito.objects.filter(usuario_id=user_id).select_related('auto')
+    
+    autos_favoritos = []
+    for favorito in favoritos:
+        auto = favorito.auto  
+        autos_favoritos.append({
+            'id': auto.id,
+            'nombre': auto.nombre,
+            'marca': auto.marca,
+            'precio': auto.precio,
+            'descripcion': auto.descripcion,
+            'origen_url': auto.origen,
+            'fecha_actualizacion': auto.fecha_actualizacion,
+            'automotora_nombre': auto.automotora.nombre,
+            'imagen': auto.imagen,
+        })
 
     datos = {
-        'autos5': listautos5
+        'autos_favoritos': autos_favoritos
     }
 
     return render(request, 'core/favoritos.html', datos)
+
+@login_required
+@require_POST
+def add_favorite(request, auto_id):
+    auto = Auto.objects.get(id=auto_id)
+    favorito, created = Favorito.objects.get_or_create(usuario=request.user, auto=auto)
+    return JsonResponse({'status': 'added' if created else 'exists'})
+
+@login_required
+@require_http_methods(["DELETE"])
+def remove_favorite(request, auto_id):
+    try:
+        # Intenta eliminar el favorito
+        favorito = Favorito.objects.get(usuario=request.user, auto_id=auto_id)
+        favorito.delete()
+        return JsonResponse({'status': 'removed'})
+    except Favorito.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Favorito not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
 def showDetail(request, id):
     auto = get_object_or_404(Auto, id=id)

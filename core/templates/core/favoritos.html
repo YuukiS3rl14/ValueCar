@@ -12,37 +12,42 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
             <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                {% for auto in autos5 %}
-                <div class="col">
-                    <div class="product-item">
-                        {% if user.is_authenticated %}
-                            <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ auto.id }}">
-                                <svg width="24" height="24">
-                                    <use xlink:href="#heart"></use>
-                                </svg>
-                            </a>
-                        {% endif %}
-                        <figure>
-                            <a href="{% url 'detail' auto.id %}" title="{{ auto.nombre }}">  
-                                <img src="{{ auto.imagen.url }}" class="tab-image" alt="{{ auto.nombre }}">
-                            </a>
-                        </figure>
-                        <h3>{{ auto.nombre }}</h3>  
-                        <h5>{{ auto.marca }}</h5>
-                        <span class="rating"><svg width="24" height="24" class="text-primary">
-                                <use xlink:href="#star-solid"></use>
-                            </svg> 4.5</span>
-                        <span class="price">${{ auto.precio }}</span>
-                        <div class="text-end mt-2">
-                            <img src="{% static 'core/images/' %}{{ product.supermercado.nombre }}-logo.png" class="brand-logo" alt="{{ auto.supermercado.nombre }} Logo">
+                {% if autos_favoritos %}
+                    {% for auto in autos_favoritos %}
+                    <div class="col">
+                        <div class="product-item">
+                            {% if user.is_authenticated %}
+                                <a href="#" class="btn-wishlist toggle-favorite" data-product-id="{{ auto.id }}">
+                                    <svg width="24" height="24">
+                                        <use xlink:href="#heart"></use>
+                                    </svg>
+                                </a>
+                            {% endif %}
+                            <figure>
+                                <a href="{% url 'detail' auto.id %}" title="{{ auto.nombre }}">
+                                    <img src="{{ auto.imagen.url }}" class="tab-image" alt="{{ auto.nombre }}">
+                                </a>
+                            </figure>
+                            <h3>{{ auto.nombre }}</h3>
+                            <h5>{{ auto.marca }}</h5>
+                            <span class="rating"><svg width="24" height="24" class="text-primary">
+                                    <use xlink:href="#star-solid"></use>
+                                </svg> 4.5</span>
+                            <span class="price">${{ auto.precio }}</span>
+                            <div class="text-end mt-2">
+                                <img src="{% static 'core/images/' %}{{ auto.automotora.nombre }}-logo.png" class="brand-logo" alt="{{ auto.automotora.nombre }} Logo">
+                            </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <div class="col">
+                        <p>No tienes autos favoritos.</p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
-

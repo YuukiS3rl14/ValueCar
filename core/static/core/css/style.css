@@ -807,3 +807,6 @@ a.no-underline:hover {
 .social-icon img {
   margin-right: 8px; 
 }
+.img-wrapper {
+  height: 100%;
+}

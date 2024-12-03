@@ -31,4 +31,4 @@ class ComentarioForm(forms.ModelForm):
         fields = ['titulo', 'texto', 'calificacion']
 
     usuario_id = forms.IntegerField(widget=forms.HiddenInput())
-    producto_id = forms.IntegerField(widget=forms.HiddenInput())
+    auto_id = forms.IntegerField(widget=forms.HiddenInput())
