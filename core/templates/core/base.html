@@ -31,7 +31,10 @@
     <!-- Simbolos -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <defs>
-            <symbol xmlns="http://www.w3.org/2000/svg" id="heart" viewBox="0 0 24 24">
+            <symbol id="heart" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M20.16 4.61A6.27 6.27 0 0 0 12 4a6.27 6.27 0 0 0-8.16 9.48l7.45 7.45a1 1 0 0 0 1.42 0l7.45-7.45a6.27 6.27 0 0 0 0-8.87Zm-1.41 7.46L12 18.81l-6.75-6.74a4.28 4.28 0 0 1 3-7.3a4.25 4.25 0 0 1 3 1.25a1 1 0 0 0 1.42 0a4.27 4.27 0 0 1 6 6.05Z" />
+            </symbol>
+            <symbol id="heart-filled" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M20.16 4.61A6.27 6.27 0 0 0 12 4a6.27 6.27 0 0 0-8.16 9.48l7.45 7.45a1 1 0 0 0 1.42 0l7.45-7.45a6.27 6.27 0 0 0 0-8.87Zm-1.41 7.46L12 18.81l-6.75-6.74a4.28 4.28 0 0 1 3-7.3a4.25 4.25 0 0 1 3 1.25a1 1 0 0 0 1.42 0a4.27 4.27 0 0 1 6 6.05Z" />
             </symbol>
             <symbol xmlns="http://www.w3.org/2000/svg" id="star-solid" viewBox="0 0 15 15">
@@ -109,96 +112,70 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="col-sm-8 col-lg-5 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
+                <div class="col-sm-8 col-lg-5 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
                     <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
-                        <ul class="d-flex justify-content-end list-unstyled m-0">
-                            {% if user.is_authenticated %}
-                            <li>
-                                <a href="{% url 'perfil' %}" class="d-flex rounded-4 bg-light p-2 mx-1 no-underline">
-                                    <span class="me-2">@{{ user.username }}</span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#user"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'favoritos' %}" class="d-flex rounded-4 bg-light p-2 mx-1 no-underline">
-                                    <span class="me-2">Favoritos</span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'logout' %}" class="d-flex rounded-4 bg-light p-2 mx-1 no-underline">
-                                    <span class="me-2">Cerrar_Sesion</span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#user"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'admin' %}" class="d-flex rounded-4 bg-light p-2 mx-1 no-underline">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#star-solid"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            {% else %}
-                            <li>
-                                <a href="{% url 'login' %}" class="d-flex rounded-4 bg-light p-2 mx-1 no-underline">
-                                    <span class="me-2">Iniciar_Sesion</span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#user"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li id="guest-content">
-                                <a href="{% url 'registro' %}" class="d-flex rounded-4 bg-light p-2 mx-1 no-underline">
-                                    <span class="me-2">Registro</span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#user"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            {% endif %}
-                        </ul>
+                        <div class="dropdown">
+                            <button class="btn-user d-flex align-items-center justify-content-center rounded-circle bg-light p-2 no-underline" id="userDropdown" aria-expanded="false">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                    <use xlink:href="#user"></use>
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu list-unstyled m-0" aria-labelledby="userDropdown">
+                                {% if user.is_authenticated %}
+                                <li>
+                                    <a href="{% url 'perfil' %}" class="d-flex p-2 justify-content-between no-underline">
+                                        <span class="me-2">Perfil: @{{ user.username }}</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <use xlink:href="#user"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'favoritos' %}" class="d-flex p-2 justify-content-between no-underline">
+                                        <span class="me-2">Favoritos</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <use xlink:href="#heart"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'logout' %}" class="d-flex p-2 justify-content-between no-underline">
+                                        <span class="me-2">Cerrar Sesión</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <use xlink:href="#user"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                {% if user.is_authenticated and user.is_staff %}
+                                    <li>
+                                        <a href="{% url 'admin:index' %}" class="d-flex p-2 justify-content-center no-underline">
+                                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                                <use xlink:href="#star-solid"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% else %}
+                                <li>
+                                    <a href="{% url 'login' %}" class="d-flex p-2 justify-content-between no-underline">
+                                        <span class="me-2">Iniciar Sesión</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <use xlink:href="#user"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li id="guest-content">
+                                    <a href="{% url 'registro' %}" class="d-flex p-2 justify-content-between no-underline">
+                                        <span class="me-2">Registro</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <use xlink:href="#user"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div>
-                    <ul class="d-flex justify-content-end list-unstyled m-0">
-                        <li class="d-lg-none">
-                            <a href="{% url 'search' %}" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <use xlink:href="#search"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="d-lg-none">
-                            <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <use xlink:href="#heart"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="d-lg-none">
-                            <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <use xlink:href="#user"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="d-lg-none">
-                            <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <use xlink:href="#user"></use>
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -261,7 +238,6 @@
                                     <div class="mb-3">
                                         <label for="priceRange" class="form-label">Rango de Precio:</label>
                                         <select id="priceRange" name="price" class="form-select">
-                                            <option value="">Rango</option>
                                             <option value="0-500">$0 - $500</option>
                                             <option value="501-1000">$501 - $1000</option>
                                             <option value="1001-10000">$1001 - $10000</option>
@@ -272,25 +248,20 @@
                                     <div class="mb-3">
                                         <label for="category" class="form-label">Marca:</label>
                                         <select id="category" name="category" class="form-select">
-                                            <option value="">Texto</option>
-                                            <option value="Miraflores">Miraflores</option>
-                                            <option value="Carozzi">Carozzi</option>
-                                            <option value="Colun">Colun</option>
+                                            <option value="Miraflores">Chevrolet</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="market" class="form-label">Supermercado:</label>
+                                        <label for="market" class="form-label">Automotora:</label>
                                         <select id="market" name="market" class="form-select">
-                                            <option value="">Texto</option>
-                                            <option value="1">Lider</option>
-                                            <option value="2">Jumbo</option>
-                                            <option value="3">Santa Isabel</option>
+                                            <option value="1">Guillermo Morales</option>
+                                            <option value="2">Auto Cosmos</option>
+                                            <option value="3">Autos Usados</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nameInitial" class="form-label">Letra Inicial del Vehiculo:</label>
                                         <select id="nameInitial" name="name_initial" class="form-select">
-                                            <option value="">Letra</option>
                                             {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"|slice:":26" %}
                                                 <option value="{{ letter }}">{{ letter }}</option>
                                             {% endfor %}

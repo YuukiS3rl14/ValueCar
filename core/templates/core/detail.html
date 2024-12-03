@@ -13,7 +13,7 @@
 </div>
 {% endif %}
 <div class="container">
-    <h1>{{ auto.nombre }} - {{auto.marca}}</h1>
+    <h1>{{ auto.nombre }} - {{ auto.marca }}</h1>
     <div class="row">
         <div class="col-md-6">
             <img src="{{ auto.imagen.url }}" alt="{{ auto.nombre }}" class="img-fluid">
@@ -26,12 +26,40 @@
                     <td>{{ auto.marca }}</td>
                 </tr>
                 <tr>
+                    <th>Modelo</th>
+                    <td>{{ auto.modelo }}</td>
+                </tr>
+                <tr>
+                    <th>Año</th>
+                    <td>{{ auto.año }}</td>
+                </tr>
+                <tr>
                     <th>Precio</th>
                     <td>${{ auto.precio }}</td>
                 </tr>
                 <tr>
                     <th>Descripción</th>
                     <td>{{ auto.descripcion }}</td>
+                </tr>
+                <tr>
+                    <th>Color</th>
+                    <td>{{ auto.color }}</td>
+                </tr>
+                <tr>
+                    <th>Kilometraje</th>
+                    <td>{{ auto.kilometraje }} km</td>
+                </tr>
+                <tr>
+                    <th>Potencia</th>
+                    <td>{{ auto.potencia }}</td>
+                </tr>
+                <tr>
+                    <th>Tipo de Combustible</th>
+                    <td>{{ auto.tipo_combustible_id }}</td>  {# Se puede cambiar por un nombre más descriptivo si tienes un modelo relacionado #}
+                </tr>
+                <tr>
+                    <th>Transmisión</th>
+                    <td>{{ auto.tipo_transmicion_id }}</td>  {# Se puede cambiar por un nombre más descriptivo si tienes un modelo relacionado #}
                 </tr>
                 <tr>
                     <th>Supermercado</th>
@@ -42,44 +70,42 @@
                     <td>{{ auto.fecha_actualizacion }}</td>
                 </tr>
             </table>
-            <a href="{{ auto.origen }}" class="btn btn-primary">Ir a la Automotora</a>
+            <a href="{{ auto.origen }}" class="btn btn-primary" target="_blank">Ir a la Automotora</a>
             {% if user.is_authenticated %}
                 <button class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#commentOffcanvas">Añadir Comentario</button>
             {% endif %}
-            </div>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="commentOffcanvas" aria-labelledby="offcanvasMenuLabel">
-                <div class="offcanvas-header justify-content-center">
-                    <h5 id="offcanvasMenuLabel">Añadir Comentario</h5>
-                </div>
-                <div class="offcanvas-body text-center">
-                    <form id="commentForm" method="post">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        <input type="hidden" name="usuario_id" value="{{ user.id }}">
-                        <input type="hidden" name="auto_id" value="{{ auto.id }}">
-                        <button type="submit" class="btn btn-primary" id="submitComment">Enviar Comentario</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Volver</button>
-                    </form>
-                </div>
-            </div>
-            <h2>Comentarios:</h2>
-            <div>
-                {% for comentario in comentarios %}
-                    <div class="comment">
-                        <strong>{{ comentario.usuario.username }}</strong>: <em>{{ comentario.titulo }}</em>
-                        <br>{{ comentario.texto }} 
-                        <br><em>Calificación: {{ comentario.calificacion }}</em>
-                    </div>
-                    <hr>
-                {% empty %}
-                    <p>No hay comentarios para este vehiculo.</p>
-                {% endfor %}
-            </div>
-            <div>
-                {% include 'core/paginator.html' with paginator=paginator %}
-            </div>
         </div>
     </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="commentOffcanvas" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header justify-content-center">
+            <h5 id="offcanvasMenuLabel">Añadir Comentario</h5>
+        </div>
+        <div class="offcanvas-body text-center">
+            <form id="commentForm" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="hidden" name="usuario_id" value="{{ user.id }}">
+                <input type="hidden" name="auto_id" value="{{ auto.id }}">
+                <button type="submit" class="btn btn-primary" id="submitComment">Enviar Comentario</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Volver</button>
+            </form>
+        </div>
+    </div>
+    <h2>Comentarios:</h2>
+    <div>
+        {% for comentario in comentarios %}
+            <div class="comment">
+                <strong>{{ comentario.usuario.username }}</strong>: <em>{{ comentario.titulo }}</em>
+                <br>{{ comentario.texto }} 
+                <br><em>Calificación: {{ comentario.calificacion }}</em>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No hay comentarios para este vehículo.</p>
+        {% endfor %}
+    </div>
+    <div>
+        {% include 'core/paginator.html' with paginator=paginator %}
+    </div>
 </div>
-
 {% endblock %}

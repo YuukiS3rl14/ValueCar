@@ -15,11 +15,11 @@ from .forms import *
 def showIndex(request):
     listautos5 = Auto.objects.order_by('-fecha_actualizacion')[:5]
     autosguillermo = Auto.objects.filter(automotora__nombre='Guillermo Morales')
-    autoscosmos = Auto.objects.filter(automotora__nombre='autoscosmos')
+    autocosmos = Auto.objects.filter(automotora__nombre='autocosmos')
     autosusados = Auto.objects.filter(automotora__nombre='autosusados')
     
     guillermo_autos = [autosguillermo[i:i + 5] for i in range(0, len(autosguillermo), 5)]
-    cosmos_autos = [autoscosmos[i:i + 5] for i in range(0, len(autoscosmos), 5)]
+    cosmos_autos = [autocosmos[i:i + 5] for i in range(0, len(autocosmos), 5)]
     usados_autos = [autosusados[i:i + 5] for i in range(0, len(autosusados), 5)]
 
     datos = {
@@ -98,9 +98,10 @@ def showSearch(request):
 @login_required
 def showFavorite(request):
     user_id = request.user.id
-    
     favoritos = Favorito.objects.filter(usuario_id=user_id).select_related('auto')
     
+    favoritos_ids = [favorito.auto.id for favorito in favoritos]  # Generar lista de IDs
+
     autos_favoritos = []
     for favorito in favoritos:
         auto = favorito.auto  
@@ -117,7 +118,8 @@ def showFavorite(request):
         })
 
     datos = {
-        'autos_favoritos': autos_favoritos
+        'autos_favoritos': autos_favoritos,
+        'favoritos_ids': favoritos_ids  # Asegúrate de pasar esto
     }
 
     return render(request, 'core/favoritos.html', datos)
@@ -132,15 +134,8 @@ def add_favorite(request, auto_id):
 @login_required
 @require_http_methods(["DELETE"])
 def remove_favorite(request, auto_id):
-    try:
-        # Intenta eliminar el favorito
-        favorito = Favorito.objects.get(usuario=request.user, auto_id=auto_id)
-        favorito.delete()
-        return JsonResponse({'status': 'removed'})
-    except Favorito.DoesNotExist:
-        return JsonResponse({'status': 'error', 'message': 'Favorito not found'}, status=404)
-    except Exception as e:
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    Favorito.objects.filter(usuario=request.user, auto_id=auto_id).delete()
+    return JsonResponse({'status': 'removed'})
 
 def showDetail(request, id):
     auto = get_object_or_404(Auto, id=id)
